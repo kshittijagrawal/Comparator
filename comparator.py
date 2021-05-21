@@ -28,7 +28,7 @@ def amz_details(bsoup, product, header):
         name = soup.find("span", id="productTitle")
         product_name = name.text.strip()
     except:
-        product_name = " ".join(product.title())
+        product_name = " ".join(product).title()
     try: 
         rating = soup.find("span", class_="a-icon-alt")
         product_rating = rating.text
@@ -66,7 +66,7 @@ def flip_details(bsoup, product, header):
         name = soup.find("div", class_="aMaAEs")
         product_name = name.div.h1.span.text
     except:
-        product_name = " ".join(product.title())
+        product_name = " ".join(product).title()
     try:
         rating = name.find("div", class_="_3LWZlK")
         product_rating = rating.text + " out of 5 stars"
