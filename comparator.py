@@ -8,6 +8,8 @@ from prettytable import PrettyTable
 
 
 def amz_details(bsoup, product, header):
+    """ Function used to visit amazon's website, render all the relevant tags, scrapes required information, and returns it to the main block. """
+
     container = bsoup.find("div", class_="s-main-slot s-result-list s-search-results sg-row")
     prod_links = []
     base_url = "https://www.amazon.in"
@@ -47,6 +49,8 @@ def amz_details(bsoup, product, header):
 
 
 def flip_details(bsoup, product, header):
+    """ Function used to visit flipkart's website, render all the relevant tags, scrapes required information, and returns it to the main block. """
+
     container = bsoup.find_all("div", class_="_1AtVbE col-12-12")
     prod_links = []
     base_url = "https://www.flipkart.com"
@@ -85,6 +89,9 @@ def flip_details(bsoup, product, header):
 
 
 def error_handler(source, prod, HEADERS):
+    """ Function that sends GET request to the URL and retrieves information; prints the particular error message if an error occured and exits with an exit code 1
+        else returns the request object received. """
+
     try:
         req = requests.get(source, params=prod, headers=HEADERS)
     except Timeout as e:
@@ -104,6 +111,9 @@ def error_handler(source, prod, HEADERS):
 
 
 def flip_main():
+    """ Function that extracts product information from the command line, calls 'error_handler()' to check for errors and passes the information to 'flip_details()' 
+        to gather required product details. """
+
     product = sys.argv[1:]
     prod_key = "+".join(product)
 
@@ -119,6 +129,9 @@ def flip_main():
 
 
 def amz_main():
+    """ Function that extracts product information from the command line, calls 'error_handler()' to check for errors and passes the information to 'amz_details()' 
+        to gather required product details. """
+
     product = sys.argv[1:]
     product_key = "+".join(product)
 
@@ -134,6 +147,8 @@ def amz_main():
 
 
 if __name__ == "__main__":
+    """ Main block where the gathered result is then printed in the form of tables. """
+
     flip_res = flip_main()
     time.sleep(2)
     amz_res = amz_main()
